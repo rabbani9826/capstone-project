@@ -153,10 +153,15 @@ select {
 
 input:focus,
 select:focus,
-button:focus-visible {
+button:focus-visible,
+.check-field:focus-within {
     outline: 3px solid color-mix(in srgb, var(--focus) 32%, transparent);
     outline-offset: 2px;
     border-color: var(--focus);
+}
+
+.check-field:focus-within {
+    border-radius: 0;
 }
 
 input[aria-invalid="true"] {

@@ -29,16 +29,30 @@ This repository contains my capstone project developed as part of my AI-assisted
 
 ## Project Status
 
-Settings form implemented.
+Settings form implemented with Round 2 accessibility and validation improvements.
 
 ## Settings Form
 
 The browser-only settings form includes profile fields for full name, email, and password, plus appearance, language, and product update preferences.
 
-- Name, email, and password are required.
-- Email must use a valid email format.
-- Passwords must contain at least 8 characters.
-- Validation messages appear beside the relevant fields.
+### Round 2 improvements
+
+- Added clear labels and accessibility attributes to the form controls.
+- Associated validation messages with the relevant fields using `aria-invalid`, `aria-errormessage`, and `aria-live` updates.
+- Kept keyboard navigation intact and preserved strong visible focus states.
+- Tightened validation to reject blank or whitespace-only names, invalid email addresses, and passwords shorter than 8 characters.
+- Preserved the successful save flow and restored saved preferences, including the product update checkbox, on refresh.
+
+### Validation behavior
+
+- Full name is required and cannot be empty or whitespace-only.
+- Email must be a valid email address pattern.
+- Password must be at least 8 characters long.
+- Required fields show clear in-context error messages when the form is submitted.
+- The first invalid field receives focus so the user can correct it quickly.
+
+### Saved settings and persistence
+
 - Non-sensitive settings are saved in `localStorage` and restored when the page is reopened.
 - Passwords are cleared after saving and are never persisted.
 

@@ -19,6 +19,10 @@ function saveSettings(settings) {
     }
 }
 
+function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
 function applyTheme(theme) {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     document.body.dataset.theme = theme === 'dark' || (theme === 'system' && prefersDark) ? 'dark' : 'light';
@@ -39,6 +43,7 @@ function setFieldError(fieldName, message) {
     const field = settingsForm.elements[fieldName];
     const error = document.querySelector(`#${fieldName}-error`);
     field.setAttribute('aria-invalid', message ? 'true' : 'false');
+    field.setAttribute('aria-errormessage', message ? `${fieldName}-error` : '');
     error.textContent = message;
 }
 
@@ -49,11 +54,23 @@ function validateSettings() {
     const password = fields.password.value;
     const errors = {};
 
-    if (!name) errors.name = 'Enter your full name.';
-    if (!email) errors.email = 'Enter your email address.';
-    else if (!fields.email.validity.valid) errors.email = 'Enter a valid email address.';
-    if (!password) errors.password = 'Enter a new password.';
-    else if (password.length < 8) errors.password = 'Use at least 8 characters.';
+    if (!name) {
+        errors.name = 'Enter your full name.';
+    } else if (name.length < 1) {
+        errors.name = 'Full name cannot be blank.';
+    }
+
+    if (!email) {
+        errors.email = 'Enter your email address.';
+    } else if (!isValidEmail(email)) {
+        errors.email = 'Enter a valid email address.';
+    }
+
+    if (!password) {
+        errors.password = 'Enter a new password.';
+    } else if (password.length < 8) {
+        errors.password = 'Use at least 8 characters.';
+    }
 
     ['name', 'email', 'password'].forEach((fieldName) => setFieldError(fieldName, errors[fieldName] || ''));
     return { errors, name, email, password };
