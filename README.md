@@ -29,7 +29,20 @@ This repository contains my capstone project developed as part of my AI-assisted
 
 ## Project Status
 
-Setup phase complete.
+Settings form implemented.
+
+## Settings Form
+
+The browser-only settings form includes profile fields for full name, email, and password, plus appearance, language, and product update preferences.
+
+- Name, email, and password are required.
+- Email must use a valid email format.
+- Passwords must contain at least 8 characters.
+- Validation messages appear beside the relevant fields.
+- Non-sensitive settings are saved in `localStorage` and restored when the page is reopened.
+- Passwords are cleared after saving and are never persisted.
+
+Open `index.html` directly or use a local web server to run the app.
 
 ## Development
 
